@@ -305,6 +305,21 @@ lvim.plugins = {
     cmd = { "Cheat", "CheatWithoutComments", "CheatList", "CheatListWithoutComments" },
     disable = not lvim.builtin.cheat.active,
   },
+  {
+    "tzachar/cmp-tabnine",
+    run = "./install.sh",
+    requires = "hrsh7th/nvim-cmp",
+    config = function()
+      local tabnine = require "cmp_tabnine.config"
+      tabnine:setup {
+        max_lines = 1000,
+        max_num_results = 10,
+        sort = true,
+      }
+    end,
+    -- disable = not lvim.builtin.tabnine.active,
+  },
+  { "ray-x/go.nvim" },
   { "tpope/vim-surround" },
 }
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)

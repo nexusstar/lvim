@@ -2,7 +2,6 @@ local M = {}
 
 M.config = function()
   -- Additional keybindings
-  -- =========================================
   lvim.keys.insert_mode["jk"] = "<ESC>:w<CR>"
   lvim.keys.insert_mode["<C-s>"] = "<cmd>lua vim.lsp.buf.signature_help()<cr>"
   lvim.keys.normal_mode["<C-n>i"] = { "<C-i>", { noremap = true } }
