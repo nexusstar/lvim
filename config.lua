@@ -1,9 +1,9 @@
 -- General
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "onedarker"
+lvim.colorscheme = "onedarker" -- on load just to prevent lvim from crashing
 lvim.lsp.diagnostics.virtual_text = false
-lvim.number = "relativenumber"
+require("user.neovim").config()
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
