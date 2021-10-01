@@ -56,6 +56,7 @@ M.config = function()
       show_close_icon = false,
       show_buffer_icons = true,
       separator_style = "thin",
+      show_tab_indicators = true,
       enforce_regular_tabs = false,
       always_show_bufferline = false,
       diagnostics = "nvim_lsp",

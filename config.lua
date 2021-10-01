@@ -84,7 +84,7 @@ lvim.plugins = {
     end,
     cond = function()
       local _time = os.date "*t"
-      return (_time.hour >= 17 and _time.hour < 22)
+      return (_time.hour >= 17 and _time.hour < 23)
     end,
   },
   {
