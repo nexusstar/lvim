@@ -7,9 +7,9 @@ local builtin = require "telescope.builtin"
 -- beautiful default layout for telescope prompt
 function M.layout_config()
   return {
-    width = 0.90,
+    width = 0.80,
     height = 0.85,
-    preview_cutoff = 120,
+    preview_cutoff = 100,
     prompt_position = "bottom",
     horizontal = {
       preview_width = function(_, cols, _)
@@ -21,8 +21,8 @@ function M.layout_config()
       end,
     },
     vertical = {
-      width = 0.9,
-      height = 0.95,
+      width = 0.80,
+      height = 0.85,
       preview_height = 0.5,
     },
 
@@ -42,7 +42,7 @@ function M.find_string()
     shorten_path = false,
     layout_strategy = "flex",
     layout_config = {
-      width = 0.9,
+      width = 0.8,
       height = 0.8,
       horizontal = { width = { padding = 0.15 } },
       vertical = { preview_height = 0.75 },
