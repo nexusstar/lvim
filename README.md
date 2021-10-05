@@ -8,6 +8,6 @@ Look up the Lua jedi masters configs:
 [Christian Chiarulli lvim files](https://github.com/ChristianChiarulli/lvim)
 
 Still in owe from [ rayx ](https://github.com/ray-x) config for neovim
-steeling bit and pieces from there [ nvim config ]( https://github.com/ray-x/nvim )
+steeling bit and pieces from there [ nvim config  ]( https://github.com/ray-x/nvim )
 
 

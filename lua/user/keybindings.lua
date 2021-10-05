@@ -17,6 +17,7 @@ M.config = function()
   lvim.keys.visual_mode["y"] = [[myy`y]]
   lvim.keys.visual_mode["Y"] = [[myY`y]]
   lvim.keys.normal_mode["Y"] = "y$"
+
   -- WhichKey keybindings
   -- =========================================
   lvim.builtin.which_key.mappings["de"] = { "<cmd>lua require('dapui').eval()<cr>", "Eval" }

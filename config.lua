@@ -58,7 +58,7 @@ lvim.lang.typescript.on_attach = function(client, _)
   require("nvim-lsp-ts-utils").setup_client(client)
 end
 lvim.lang.typescriptreact.on_attach = lvim.lang.typescript.on_attach
-lvim.lsp.override = { "rust", "java", "dart" }
+lvim.lsp.override = { "rust" }
 require("user.json_schemas").setup()
 require("user.yaml_schemas").setup()
 
@@ -73,6 +73,10 @@ lvim.plugins = {
   -- -- default is tokyonight
   {
     "folke/tokyonight.nvim",
+    branch = "feature/vim-diagnostics",
+    config = function()
+      vim.g.tokyonight_style = "night"
+    end,
   },
   {
     "NTBBloodbath/doom-one.nvim",
