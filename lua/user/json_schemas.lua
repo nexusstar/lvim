@@ -1,7 +1,7 @@
 -- https://www.schemastore.org/json/
 local M = {}
 
-M.setup = function()
+M.config = function()
   local schemas = {
     {
       description = "Package JSON file",

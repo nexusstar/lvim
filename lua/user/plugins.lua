@@ -1,42 +1,50 @@
 local M = {}
 
 M.config = function()
+  local trouble_plugin = "folke/trouble.nvim"
+  local ok, _ = pcall(require, "vim.diagnostic")
+  if ok then
+    trouble_plugin = "HungryJoe/trouble.nvim"
+  end
   lvim.plugins = {
     {
-      "Pocco81/Catppuccino.nvim",
+      "abzcoding/zephyr-nvim",
       config = function()
-        require("user/theme").catppuccino()
+        vim.cmd [[
+       colorscheme zephyr
+       ]]
       end,
       cond = function()
         local _time = os.date "*t"
-        return (_time.hour >= 7 and _time.hour < 11)
+        return (_time.hour >= 5 and _time.hour < 8)
       end,
     },
     {
       "abzcoding/tokyonight.nvim",
       branch = "feature/vim-diagnostics",
       config = function()
-        require("user/theme").tokyonight()
+        require("user.theme").tokyonight()
         vim.cmd [[
       colorscheme tokyonight
       ]]
       end,
       cond = function()
         local _time = os.date "*t"
-        return (_time.hour >= 0 and _time.hour < 7) or (_time.hour >= 11 and _time.hour < 17)
+        return (_time.hour >= 0 and _time.hour <= 17)
       end,
     },
     {
-      "NTBBloodbath/doom-one.nvim",
+      "abzcoding/doom-one.nvim",
+      branch = "feat/nvim-cmp-floating",
       config = function()
-        vim.g.doom_one_italic_comments = true
+        require("user.theme").doom()
         vim.cmd [[
       colorscheme doom-one
       ]]
       end,
       cond = function()
         local _time = os.date "*t"
-        return (_time.hour >= 17 and _time.hour < 21)
+        return (_time.hour >= 17 and _time.hour < 23)
       end,
     },
     {
@@ -63,7 +71,7 @@ M.config = function()
       event = "BufRead",
     },
     {
-      "folke/trouble.nvim",
+      trouble_plugin,
       requires = "kyazdani42/nvim-web-devicons",
       config = function()
         require("trouble").setup()
@@ -189,7 +197,7 @@ M.config = function()
       "kristijanhusak/orgmode.nvim",
       ft = { "org" },
       config = function()
-        require("user.orgmode").setup {}
+        require("user.orgmode").setup()
       end,
       disable = not lvim.builtin.orgmode.active,
     },
@@ -214,17 +222,12 @@ M.config = function()
     },
     {
       "folke/lua-dev.nvim",
-      config = function()
-        require("user.lua_dev").config()
-      end,
       ft = "lua",
+      before = "williamboman/nvim-lsp-installer",
       disable = not lvim.builtin.lua_dev.active,
     },
     {
       "jose-elias-alvarez/nvim-lsp-ts-utils",
-      config = function()
-        require("user.ts_utils").config()
-      end,
       ft = {
         "javascript",
         "javascriptreact",
@@ -233,6 +236,7 @@ M.config = function()
         "typescriptreact",
         "typescript.tsx",
       },
+      before = "williamboman/nvim-lsp-installer",
     },
     {
       "lervag/vimtex",
@@ -259,20 +263,24 @@ M.config = function()
       disable = not lvim.builtin.test_runner.active,
     },
     {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      run = "make",
-      after = "telescope.nvim",
-      config = function()
-        require("telescope").load_extension "fzf"
-      end,
-    },
-    {
       "akinsho/flutter-tools.nvim",
       requires = "nvim-lua/plenary.nvim",
       config = function()
         require("flutter-tools").setup {
+          ui = { border = "rounded" },
+          debugger = { enabled = true },
+          outline = { auto_open = false },
+          decorations = {
+            statusline = { device = true, app_version = true },
+          },
+          widget_guides = { enabled = true, debug = true },
+          dev_log = { open_cmd = "tabedit" },
           lsp = {
-            on_attach = require("lsp").common_on_attach,
+            settings = {
+              showTodos = false,
+              renameFilesWithClasses = "always",
+            },
+            on_attach = require("lvim.lsp").common_on_attach,
           },
         }
       end,
@@ -287,6 +295,15 @@ M.config = function()
       cmd = { "Cheat", "CheatWithoutComments", "CheatList", "CheatListWithoutComments" },
       disable = not lvim.builtin.cheat.active,
     },
+    {
+      "AckslD/nvim-neoclip.lua",
+      config = function()
+        require("user.neoclip").config()
+      end,
+      requires = { "tami5/sqlite.lua", module = "sqlite" },
+    },
+    { "tpope/vim-surround" },
+    { "ray-x/go.nvim" },
   }
 end
 
