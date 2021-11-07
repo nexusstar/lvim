@@ -315,6 +315,9 @@ M.config = function()
     { "ray-x/go.nvim" },
     {
       "github/copilot.vim",
+      config = function()
+        require("user.copilot").config()
+      end,
       disable = not lvim.builtin.copilot,
     },
   }
