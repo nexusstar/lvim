@@ -20,8 +20,17 @@ M.config = function()
       end,
     },
     {
-      "abzcoding/tokyonight.nvim",
-      branch = "feature/vim-diagnostics",
+      "Pocco81/Catppuccino.nvim",
+      config = function()
+        require("user.theme").catppuccino()
+      end,
+      cond = function()
+        local _time = os.date "*t"
+        return (_time.hour >= 8 and _time.hour < 11)
+      end,
+    },
+    {
+      "folke/tokyonight.nvim",
       config = function()
         require("user.theme").tokyonight()
         vim.cmd [[
@@ -30,7 +39,7 @@ M.config = function()
       end,
       cond = function()
         local _time = os.date "*t"
-        return (_time.hour >= 0 and _time.hour <= 17)
+        return (_time.hour >= 11 and _time.hour <= 17)
       end,
     },
     {
@@ -304,6 +313,10 @@ M.config = function()
     },
     { "tpope/vim-surround" },
     { "ray-x/go.nvim" },
+    {
+      "github/copilot.vim",
+      disable = not lvim.builtin.copilot,
+    },
   }
 end
 

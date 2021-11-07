@@ -116,12 +116,62 @@ end
 -- show code actions in a fancy floating window
 function M.code_actions()
   local opts = {
-    winblend = 10,
-    border = true,
+    winblend = 15,
+    layout_config = {
+      prompt_position = "top",
+      width = 80,
+      height = 12,
+    },
+    borderchars = {
+      prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
+      results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
+      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    },
+    border = {},
     previewer = false,
     shorten_path = false,
   }
   builtin.lsp_code_actions(themes.get_dropdown(opts))
+end
+
+function M.document_diagnostics()
+  local opts = {
+    winblend = 15,
+    layout_config = {
+      prompt_position = "top",
+      width = 80,
+      height = 12,
+    },
+    borderchars = {
+      prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
+      results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
+      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    },
+    border = {},
+    previewer = false,
+    shorten_path = false,
+  }
+  builtin.lsp_document_diagnostics(themes.get_dropdown(opts))
+end
+
+function M.codelens_actions()
+  local opts = {
+    winblend = 15,
+    layout_config = {
+      prompt_position = "top",
+      width = 80,
+      height = 12,
+    },
+    borderchars = {
+      prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
+      results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
+      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    },
+    border = {},
+    previewer = false,
+    shorten_path = false,
+  }
+  builtin.lsp_codelens_actions(themes.get_dropdown(opts))
 end
 
 -- show refrences to this using language server
@@ -249,6 +299,19 @@ function M.git_files()
     "^[.]vale/",
   }
   builtin.git_files(opts)
+end
+
+function M.grep_string_visual()
+  local visual_selection = function()
+    local save_previous = vim.fn.getreg "a"
+    vim.api.nvim_command 'silent! normal! "ay'
+    local selection = vim.fn.trim(vim.fn.getreg "a")
+    vim.fn.setreg("a", save_previous)
+    return vim.fn.substitute(selection, [[\n]], [[\\n]], "g")
+  end
+  require("telescope.builtin").live_grep {
+    default_text = visual_selection(),
+  }
 end
 
 return M

@@ -10,8 +10,9 @@ lvim.leader = "space"
 -- Keymapping
 require("user.keybindings").config()
 -- Customization
+lvim.builtin.copilot = true -- if you want microsoft to abuse your soul
 lvim.builtin.lastplace = { active = true } -- change to false if you are jumping to future
-lvim.builtin.tabnine = { active = true } -- change to false if you don't like tabnine
+lvim.builtin.tabnine = { active = false } -- change to false if you don't like tabnine
 lvim.builtin.persistence = { active = true } -- change to false if you don't want persistence
 lvim.builtin.presence = { active = false } -- change to true if you want discord presence
 lvim.builtin.orgmode = { active = false } -- change to true if you want orgmode.nvim

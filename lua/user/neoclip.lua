@@ -19,7 +19,7 @@ M.config = function()
       winblend = 10,
       layout_strategy = "flex",
       layout_config = {
-        prompt_position = "top",
+        prompt_position = "bottom",
         width = 0.8,
         height = 0.6,
         horizontal = { width = { padding = 0.15 } },
