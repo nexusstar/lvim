@@ -257,15 +257,15 @@ M.config = function()
   }
   ins_left {
     function()
-      local utils = require "core.lualine.utils"
+      local utilsloaline = require "core.lualine.utils"
       if vim.bo.filetype == "python" then
         local venv = os.getenv "CONDA_DEFAULT_ENV"
         if venv then
-          return string.format("  (%s)", utils.env_cleanup(venv))
+          return string.format("  (%s)", utilsloaline.env_cleanup(venv))
         end
         venv = os.getenv "VIRTUAL_ENV"
         if venv then
-          return string.format("  (%s)", utils.env_cleanup(venv))
+          return string.format("  (%s)", utilsloaline.env_cleanup(venv))
         end
         return ""
       end

@@ -20,9 +20,10 @@ M.config = function()
       end,
     },
     {
-      "Pocco81/Catppuccino.nvim",
+      "catppuccin/nvim",
+      as = "catppuccin",
       config = function()
-        require("user.theme").catppuccino()
+        require("user.theme").catppuccin()
       end,
       cond = function()
         local _time = os.date "*t"
@@ -315,10 +316,11 @@ M.config = function()
     { "ray-x/go.nvim" },
     {
       "github/copilot.vim",
+      requires = "hrsh7th/cmp-copilot",
       config = function()
         require("user.copilot").config()
       end,
-      disable = not lvim.builtin.copilot,
+      disable = not lvim.builtin.copilot_runner,
     },
   }
 end

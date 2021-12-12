@@ -1,7 +1,10 @@
 local M = {}
 
 M.config = function()
-  vim.api.nvim_set_keymap("i", "<C-J>", ":copilot#Accept('/<CR>')", { silent = true })
+  local status_ok, copilot = pcall(require, "copilot")
+  if not status_ok then
+    return
+  end
 end
 
 return M

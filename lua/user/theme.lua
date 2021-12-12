@@ -28,10 +28,10 @@ M.tokyonight = function()
   end
 end
 
-M.catppuccino = function()
-  local catppuccino = require "catppuccino"
-  catppuccino.setup {
-    colorscheme = "dark_catppuccino",
+M.catppuccin = function()
+  local catppuccin = require "catppuccin"
+  catppuccin.setup {
+    colorscheme = "dark_catppuccin",
     transparency = false,
     term_colors = false,
     styles = {
@@ -84,7 +84,7 @@ M.catppuccino = function()
       hop = true,
     },
   }
-  catppuccino.load()
+  catppuccin.load()
 end
 
 M.doom = function()

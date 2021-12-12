@@ -10,7 +10,7 @@ lvim.leader = "space"
 -- Keymapping
 require("user.keybindings").config()
 -- Customization
-lvim.builtin.copilot = true -- if you want microsoft to abuse your soul
+lvim.builtin.copilot_runner = true -- if you want microsoft to abuse your soul
 lvim.builtin.lastplace = { active = true } -- change to false if you are jumping to future
 lvim.builtin.tabnine = { active = false } -- change to false if you don't like tabnine
 lvim.builtin.persistence = { active = true } -- change to false if you don't want persistence
@@ -47,9 +47,10 @@ end
 
 -- Language Specific
 -- =========================================
-lvim.lsp.override = { "dockerls", "sumneko_lua", "texlab", "tsserver", "rust_analyzer" }
+local custom_servers = { "dockerls", "sumneko_lua", "texlab", "tsserver", "jsonls", "gopls" }
+vim.list_extend(lvim.lsp.override, { "rust_analyzer" })
+vim.list_extend(lvim.lsp.override, custom_servers)
 require("user.null_ls").config()
-require("user.lsp_install").install()
 
 -- Additional Plugins
 -- =========================================

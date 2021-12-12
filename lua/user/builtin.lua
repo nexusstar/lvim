@@ -6,6 +6,7 @@ M.config = function()
   lvim.builtin.cmp.sources = {
     { name = "nvim_lsp", max_item_count = 7 },
     { name = "cmp_tabnine", max_item_count = 3 },
+    { name = "copilot", max_item_count = 3 },
     { name = "buffer", max_item_count = 3 },
     { name = "path", max_item_count = 3 },
     { name = "luasnip", max_item_count = 3 },
@@ -34,9 +35,10 @@ M.config = function()
     path = "",
     calc = "",
     cmp_tabnine = "ﮧ",
+    copilot = "",
     ["vim-dadbod-completion"] = "𝓐",
   }
-  if lvim.copilot then
+  if lvim.copilot_runner then
     vim.g.copilot_no_tab_map = true
     vim.g.copilot_assume_mapped = true
     vim.g.copilot_tab_fallback = ""
@@ -152,7 +154,7 @@ M.config = function()
   -- =========================================
   lvim.builtin.terminal.active = true
   lvim.builtin.terminal.execs = {
-    { "lazygit", "gg", "LazyGit" },
+    { "lazygit", "gG", "LazyGit" },
   }
 
   -- WhichKey
