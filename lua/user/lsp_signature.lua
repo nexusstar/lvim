@@ -1,6 +1,11 @@
 local M = {}
 
 M.config = function()
+  local status_ok, sig = pcall(require, "lsp_signature")
+  if not status_ok then
+    return
+  end
+
   local cfg = {
     bind = true,
     doc_lines = 10,
@@ -20,15 +25,15 @@ M.config = function()
       border = "single", -- double, single, shadow, none
     },
     -- transpancy = 80,
-    extra_trigger_chars = {}, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
+    -- extra_trigger_chars = { "(", "," }, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
     zindex = 200, -- by default it will be on top of all floating windows, set to 50 send it to bottom
     debug = false, -- set to true to enable debug logging
     log_path = "debug_log_file_path", -- debug log path
-    padding = {}, -- character to pad on left and right of signature can be ' ', or '|'  etc
+    padding = "", -- character to pad on left and right of signature can be ' ', or '|'  etc
     shadow_blend = 36, -- if you using shadow as border use this set the opacity
     shadow_guibg = "Black", -- if you using shadow as border use this set the color e.g. 'Green' or '#121315'
   }
-  require("lsp_signature").setup(cfg)
+  sig.setup(cfg)
 end
 
 return M

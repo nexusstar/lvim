@@ -3,26 +3,66 @@ local M = {}
 local action_state = require "telescope.actions.state"
 local themes = require "telescope.themes"
 local builtin = require "telescope.builtin"
+local actions = require "telescope.actions"
+
+function M._multiopen(prompt_bufnr, open_cmd)
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  local num_selections = table.getn(picker:get_multi_selection())
+  local border_contents = picker.prompt_border.contents[1]
+  if string.find(border_contents, "LuaSnip") or string.find(border_contents, "LSP") then
+    actions.select_default(prompt_bufnr)
+    return
+  end
+  if num_selections > 1 then
+    vim.cmd "bw!"
+    for _, entry in ipairs(picker:get_multi_selection()) do
+      vim.cmd(string.format("%s %s", open_cmd, entry.value))
+    end
+    vim.cmd "stopinsert"
+  else
+    if open_cmd == "vsplit" then
+      actions.file_vsplit(prompt_bufnr)
+    elseif open_cmd == "split" then
+      actions.file_split(prompt_bufnr)
+    elseif open_cmd == "tabe" then
+      actions.file_tab(prompt_bufnr)
+    else
+      actions.file_edit(prompt_bufnr)
+    end
+  end
+end
+function M.multi_selection_open_vsplit(prompt_bufnr)
+  M._multiopen(prompt_bufnr, "vsplit")
+end
+function M.multi_selection_open_split(prompt_bufnr)
+  M._multiopen(prompt_bufnr, "split")
+end
+function M.multi_selection_open_tab(prompt_bufnr)
+  M._multiopen(prompt_bufnr, "tabe")
+end
+function M.multi_selection_open(prompt_bufnr)
+  M._multiopen(prompt_bufnr, "edit")
+end
 
 -- beautiful default layout for telescope prompt
 function M.layout_config()
   return {
-    width = 0.80,
+    width = 0.90,
     height = 0.85,
-    preview_cutoff = 100,
+    preview_cutoff = 120,
     prompt_position = "bottom",
     horizontal = {
       preview_width = function(_, cols, _)
         if cols > 200 then
           return math.floor(cols * 0.5)
         else
-          return math.floor(cols * 0.4)
+          return math.floor(cols * 0.6)
         end
       end,
     },
     vertical = {
-      width = 0.80,
-      height = 0.85,
+      width = 0.9,
+      height = 0.95,
       preview_height = 0.5,
     },
 
@@ -42,7 +82,7 @@ function M.find_string()
     shorten_path = false,
     layout_strategy = "flex",
     layout_config = {
-      width = 0.8,
+      width = 0.9,
       height = 0.8,
       horizontal = { width = { padding = 0.15 } },
       vertical = { preview_height = 0.75 },
@@ -134,26 +174,6 @@ function M.code_actions()
   builtin.lsp_code_actions(themes.get_dropdown(opts))
 end
 
-function M.document_diagnostics()
-  local opts = {
-    winblend = 15,
-    layout_config = {
-      prompt_position = "top",
-      width = 80,
-      height = 12,
-    },
-    borderchars = {
-      prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
-      results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
-      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-    },
-    border = {},
-    previewer = false,
-    shorten_path = false,
-  }
-  builtin.lsp_document_diagnostics(themes.get_dropdown(opts))
-end
-
 function M.codelens_actions()
   local opts = {
     winblend = 15,
@@ -234,16 +254,25 @@ function M.project_search()
   builtin.find_files {
     previewer = false,
     layout_strategy = "vertical",
-    cwd = require("nvim_lsp.util").root_pattern ".git"(vim.fn.expand "%:p"),
+    cwd = require("lspconfig/util").root_pattern ".git"(vim.fn.expand "%:p"),
   }
 end
 
 function M.curbuf()
   local opts = themes.get_dropdown {
     winblend = 10,
-    border = true,
     previewer = false,
     shorten_path = false,
+    borderchars = {
+      prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
+      results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
+      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    },
+    border = {},
+    layout_config = {
+      width = 0.45,
+      prompt_position = "top",
+    },
   }
   builtin.current_buffer_fuzzy_find(opts)
 end
@@ -251,10 +280,24 @@ end
 function M.git_status()
   local opts = themes.get_dropdown {
     winblend = 10,
-    border = true,
     previewer = false,
     shorten_path = false,
+    borderchars = {
+      prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
+      results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
+      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    },
+    border = {},
+    layout_config = {
+      width = 0.45,
+      prompt_position = "top",
+    },
   }
+
+  -- Can change the git icons using this.
+  -- opts.git_icons = {
+  --   changed = "M"
+  -- }
 
   builtin.git_status(opts)
 end
@@ -280,7 +323,7 @@ function M.git_files()
     path = nil
   end
 
-  local width = 0.35
+  local width = 0.45
   if path and string.find(path, "sourcegraph.*sourcegraph", 1, false) then
     width = 0.6
   end
@@ -289,9 +332,16 @@ function M.git_files()
     winblend = 5,
     previewer = false,
     shorten_path = false,
+    borderchars = {
+      prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
+      results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
+      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    },
+    border = {},
     cwd = path,
     layout_config = {
       width = width,
+      prompt_position = "top",
     },
   }
 

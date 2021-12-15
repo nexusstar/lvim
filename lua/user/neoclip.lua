@@ -7,7 +7,8 @@ M.config = function()
   end
 
   neoclip.setup {
-    enable_persistant_history = true,
+    history = 50,
+    enable_persistant_history = lvim.builtin.neoclip.enable_persistant_history,
     db_path = vim.fn.stdpath "data" .. "/neoclip.sqlite3",
     keys = {
       i = { select = "<c-p>", paste = "<CR>", paste_behind = "<c-k>" },
@@ -19,15 +20,15 @@ M.config = function()
       winblend = 10,
       layout_strategy = "flex",
       layout_config = {
-        prompt_position = "bottom",
+        prompt_position = "top",
         width = 0.8,
         height = 0.6,
         horizontal = { width = { padding = 0.15 } },
         vertical = { preview_height = 0.70 },
       },
       borderchars = {
-        prompt = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-        results = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+        prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
+        results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
         preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
       },
       border = {},

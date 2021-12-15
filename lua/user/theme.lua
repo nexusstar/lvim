@@ -28,63 +28,9 @@ M.tokyonight = function()
   end
 end
 
-M.catppuccin = function()
-  local catppuccin = require "catppuccin"
-  catppuccin.setup {
-    colorscheme = "dark_catppuccin",
-    transparency = false,
-    term_colors = false,
-    styles = {
-      comments = "italic",
-      functions = "NONE",
-      keywords = "italic",
-      strings = "NONE",
-      variables = "NONE",
-    },
-    integrations = {
-      treesitter = true,
-      native_lsp = {
-        enabled = true,
-        virtual_text = {
-          errors = "italic",
-          hints = "italic",
-          warnings = "italic",
-          information = "italic",
-        },
-        underlines = {
-          errors = "underline",
-          hints = "underline",
-          warnings = "underline",
-          information = "underline",
-        },
-      },
-      lsp_trouble = true,
-      lsp_saga = false,
-      gitgutter = false,
-      gitsigns = true,
-      telescope = true,
-      nvimtree = {
-        enabled = true,
-        show_root = true,
-      },
-      which_key = true,
-      indent_blankline = {
-        enabled = true,
-        colored_indent_levels = true,
-      },
-      dashboard = true,
-      neogit = false,
-      vim_sneak = false,
-      fern = false,
-      barbar = true,
-      bufferline = true,
-      markdown = true,
-      lightspeed = false,
-      ts_rainbow = false,
-      hop = true,
-    },
-  }
-  catppuccin.load()
+M.rose_pine = function()
+  vim.g.rose_pine_variant = "moon"
+  vim.cmd [[colorscheme rose-pine]]
 end
 
 M.doom = function()
@@ -156,22 +102,21 @@ M.colors = {
     gitSigns = { add = "#164846", change = "#394b70", delete = "#823c41" },
   },
 
-  catppuccino_colors = {
+  rose_pine_colors = {
     none = "NONE",
-    bg_alt = "#0e171c", -- nvim bg
-    bg = "#24283b",
-    fg = "#abb2bf", -- fg color (text)
+    bg = "#393552",
+    fg = "#e0def4",
     fg_gutter = "#3b4261",
     black = "#393b44",
     gray = "#2a2e36",
-    red = "#c94f6d",
+    red = "#eb6f92",
     green = "#97c374",
-    yellow = "#dbc074",
-    blue = "#61afef",
-    magenta = "#c678dd",
-    cyan = "#63cdcf",
+    yellow = "#f6c177",
+    blue = "#9ccfd8",
+    magenta = "#c4a7e7",
+    cyan = "#9ccfd8",
     white = "#dfdfe0",
-    orange = "#F4A261",
+    orange = "#ea9a97",
     pink = "#D67AD2",
     black_br = "#7f8c98",
     red_br = "#e06c75",
@@ -184,11 +129,12 @@ M.colors = {
     orange_br = "#F6A878",
     pink_br = "#DF97DB",
     comment = "#526175",
+    bg_alt = "#232136",
     git = {
-      add = "#dfdfe0",
-      change = "#F6A878",
-      delete = "#e06c75",
-      conflict = "#FFE37E",
+      add = "#84Cee4",
+      change = "#c4a7e7",
+      delete = "#eb6f92",
+      conflict = "#f6c177",
     },
   },
 
@@ -261,6 +207,50 @@ M.colors = {
       change = "#0c7d9d",
       delete = "#e06c75",
       conflict = "#ff8800",
+    },
+  },
+
+  zephyr_colors = {
+    base0 = "#1B2229",
+    base1 = "#1c1f24",
+    base2 = "#202328",
+    base3 = "#23272e",
+    base4 = "#3f444a",
+    base5 = "#5B6268",
+    base6 = "#73797e",
+    base7 = "#9ca0a4",
+    base8 = "#b1b1b1",
+
+    bg_alt = "#282a36",
+    bg = "#2E323C",
+    bg_popup = "#3E4556",
+    bg_highlight = "#2E323C",
+    bg_visual = "#b3deef",
+    fg = "#bbc2cf",
+    fg_alt = "#5B6268",
+    red = "#e95678",
+    redwine = "#d16d9e",
+    orange = "#D98E48",
+    yellow = "#f0c674",
+    light_green = "#abcf84",
+    green = "#afd700",
+    dark_green = "#98be65",
+    cyan = "#36d0e0",
+    blue = "#61afef",
+    violet = "#b294bb",
+    magenta = "#c678dd",
+    teal = "#1abc9c",
+    grey = "#928374",
+    brown = "#c78665",
+    black = "#000000",
+    bracket = "#80A0C2",
+    currsor_bg = "#4f5b66",
+    none = "NONE",
+    git = {
+      add = "#98be65",
+      change = "#61afef",
+      delete = "#e95678",
+      conflict = "#D98e48",
     },
   },
 }
